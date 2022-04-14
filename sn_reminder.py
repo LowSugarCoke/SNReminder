@@ -1,49 +1,57 @@
-import requests
-import time
-import os
-import re
-
-localtime = time.localtime()
-result = time.strftime("%Y-%m-%d", localtime)
-print(result)
-
-file = open('./data.txt', 'a')
-file.write("\nhello")
-file.close()
+import sn_lib
+import tkinter as tk
+from tkinter import ttk
 
 
-# url = "https://sn-video.com/data/ajax/function/ajax_mainPage.php"
+if __name__ == '__main__':
+    # SNLib = sn_lib.SNLib()
+    # if SNLib.crawl_sn_web() == False:
+    #     print("Something wrong")
+    # SNLib.read_anime()
 
-# data = {
-#     'index': 'true'
-# }
+    # while 1:
+    #     print("請輸入下列指令")
+    #     try:
+    #         command = int(input("1. 收藏動漫\n2. 顯示更新動漫列表\n3. 收藏動漫列表\n"))
+    #     except:
+    #         print("輸入錯誤，請再次輸入")
+    #         continue
+    #     if not(command > 0 and command <= 3):
+    #         print("輸入錯誤，請再次輸入")
+    #         continue
 
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.74 Safari/537.36'
-# }
+    #     if command == 1:py
+    #         SNLib.collect_anime()
+    #         SNLib.read_anime()
+    #     if command == 2:
+    #         SNLib.print_update_anime_web()
+    #     if command == 3:
+    #         is_update = SNLib.check_anime_update()
+    #         if(is_update):
+    #             SNLib.write_anime_update()
+    #             SNLib.read_anime()
+    #         SNLib.print_local_anime()
 
-# response = requests.post(url, data=data, headers=headers)
-# response.encoding = 'big5'
-# # print(response.content.decode('unicode-escape'))
+    root = tk.Tk()
+    root.geometry('800x500')
+    entry_collect_anime = tk.Entry(
+        root, width=35, font=('Arial 24')).grid(row=0, column=0, padx=20, pady=20)
+    button_collect = tk.Button(root, height=2, text='收藏動漫').grid(
+        row=0, column=1, padx=20, pady=20)
 
-# subject = re.findall(r'"subject":".*?"',
-#                      response.content.decode('unicode-escape'))
-# # print(subject)
+    listbox = tk.Listbox(root, width=70, height=20, font=('Arial 12'))
+    for i in range(200):
+        listbox.insert('end', i)
+    listbox.grid(row=1, rowspan=3, column=0)
 
-# for i in range(0, len(subject)):
-#     subject[i] = subject[i].strip('"subject":').strip('"')
-#     # print(subject[i])
-#     title = ""
-#     ep = ""
-#     flag = 0
-#     for j in range(0, len(subject[i])):
-#         if(subject[i][j] != '【' and flag == 0):
-#             title += str(subject[i][j])
-#         else:
-#             flag = 1
+    button_update_list = tk.Button(root, height=2, text='更新動漫列表').grid(
+        row=1, column=1, padx=20, sticky=tk.N)
+    button_collect_list = tk.Button(root, height=2, text='收藏動漫列表').grid(
+        row=1, column=1, padx=20, )
 
-#         if flag == 1:
-#             ep += str(subject[i][j])
+    checkbutton_reminder = tk.Checkbutton(
+        root).grid(row=3, column=1, padx=20, sticky=(tk.W, tk.S))
 
-#     print(title)
-#     print(ep)
+    label_reminder = tk.Label(root, text="每日提醒").grid(
+        row=3, column=1, padx=40, ipady=3, sticky=(tk.W, tk.S))
+    root.mainloop()
