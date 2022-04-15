@@ -54,7 +54,7 @@ class SNLib:
                 line = f.readline()
                 if line:
                     s = line.split('\t')
-                    self.local_data_dic[s[0]] = [s[1], s[2]]
+                    self.local_data_dic[s[0]] = [s[1], s[2].strip()]
                 else:
                     break
         f.close()
@@ -66,7 +66,7 @@ class SNLib:
         file.close()
 
     def collect_anime(self):
-        print(self.anime_web_dic)
+        # print(self.anime_web_dic)
         date = self.get_current_time()
         anime_name = str(input("請輸入動漫名稱: "))
         if self.anime_web_dic.get(anime_name) == None:

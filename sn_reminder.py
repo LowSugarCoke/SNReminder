@@ -1,5 +1,4 @@
 import sn_lib
-import sn_reminder_manager
 import tkinter as tk
 from tkinter import ttk
 
@@ -8,6 +7,10 @@ class Application(tk.Tk):
     def __init__(self):
         super().__init__()
         self.createWidgets()
+        self.SNLib = sn_lib.SNLib()
+        if self.SNLib.crawl_sn_web() == False:
+            print("Something wrong")
+        self.SNLib.read_anime()
 
     def createWidgets(self):
         self.geometry('800x500')
@@ -16,7 +19,8 @@ class Application(tk.Tk):
         self.button_collect = tk.Button(self, height=2, text='收藏動漫', command=self.connect_collect_button).grid(
             row=0, column=1, padx=20, pady=20)
 
-        self.listbox = tk.Listbox(self, width=70, height=20, font=('Arial 12'))
+        self.listbox = tk.Listbox(self, width=70, height=20, font=(
+            'Arial 12'))
         for i in range(200):
             self.listbox.insert('end', i)
         self.listbox.grid(row=1, rowspan=3, column=0)
@@ -34,43 +38,34 @@ class Application(tk.Tk):
 
     def connect_collect_button(self):
         print("連接收藏動漫")
+        self.run(1)
 
     def connect_update_button(self):
         print("連接更新動漫")
+        self.run(2)
 
     def connect_collect_list_button(self):
         print("連接收藏動漫更新")
+        self.run(3)
+
+    # def show_listbox(self,)
+
+    def run(self, command):
+        command = int(input("1. 輸入收藏動漫\t2. 線上更新清單\t3. 更新資料庫內容"))
+        if command == 1:
+            self.SNLib.collect_anime()
+            self.SNLib.read_anime()
+        if command == 2:
+            self.SNLib.print_update_anime_web()
+        if command == 3:
+            is_update = self.SNLib.check_anime_update()
+            if(is_update):
+                self.SNLib.write_anime_update()
+                self.SNLib.read_anime()
+            self.SNLib.print_local_anime()
 
 
 if __name__ == '__main__':
-    # SNLib = sn_lib.SNLib()
-    # if SNLib.crawl_sn_web() == False:
-    #     print("Something wrong")
-    # SNLib.read_anime()
-
-    # while 1:
-    #     print("請輸入下列指令")
-    #     try:
-    #         command = int(input("1. 收藏動漫\n2. 顯示更新動漫列表\n3. 收藏動漫列表\n"))
-    #     except:
-    #         print("輸入錯誤，請再次輸入")
-    #         continue
-    #     if not(command > 0 and command <= 3):
-    #         print("輸入錯誤，請再次輸入")
-    #         continue
-
-    #     if command == 1:py
-    #         SNLib.collect_anime()
-    #         SNLib.read_anime()
-    #     if command == 2:
-    #         SNLib.print_update_anime_web()
-    #     if command == 3:
-    #         is_update = SNLib.check_anime_update()
-    #         if(is_update):
-    #             SNLib.write_anime_update()
-    #             SNLib.read_anime()
-    #         SNLib.print_local_anime()
-
     app = Application()
     app.title("SN Reminder")
     app.mainloop()
