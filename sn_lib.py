@@ -65,12 +65,12 @@ class SNLib:
         file.write(anime+"\t"+episode+"\t"+date+"\n")
         file.close()
 
-    def collect_anime(self):
-        # print(self.anime_web_dic)
+    def collect_anime(self, anime_name):
         date = self.get_current_time()
-        anime_name = str(input("請輸入動漫名稱: "))
+        # anime_name = str(input("請輸入動漫名稱: "))
         if self.anime_web_dic.get(anime_name) == None:
             print("動漫: " + anime_name + " 找不到")
+            return False
         else:
             print(anime_name, self.anime_web_dic[anime_name])
             if (self.local_data_dic.get(anime_name) == None):
@@ -79,6 +79,7 @@ class SNLib:
                 print("寫入 "+anime_name+" 至本地")
             else:
                 print("已收藏此動漫")
+        return True
 
     def get_current_time(self):
         localtime = time.localtime()
@@ -87,11 +88,13 @@ class SNLib:
 
     def print_update_anime_web(self):
         print(self.anime_web_dic)
+        return self.anime_web_dic
 
     def print_local_anime(self):
         for a in self.local_data_dic:
             print(a+" "+self.local_data_dic[a]
                   [0]+" "+self.local_data_dic[a][1])
+        return self.local_data_dic
 
     def check_anime_update(self):
         is_update = False
@@ -108,6 +111,6 @@ class SNLib:
         file = open('./anime_list.txt', 'w', encoding="utf-8")
         for a in self.local_data_dic:
             file.write(
-                a+"\t"+self.local_data_dic[a][0]+"\t"+self.local_data_dic[a][1])
+                a+"\t"+self.local_data_dic[a][0]+"\t"+self.local_data_dic[a][1]+"\n")
         file.write("\n")
         file.close()
