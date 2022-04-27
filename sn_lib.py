@@ -1,3 +1,11 @@
+"""
+@author: Jack Lee
+Reference: "https://sn-video.com/data/ajax/function/ajax_mainPage.php"
+
+SNLib is to crawl anime website and show the updating anime episode. 
+It could save the anime in the local and update anime episodes through the 
+crawling website.  
+"""
 import time
 import requests
 import re
@@ -11,6 +19,8 @@ class SNLib:
         return
 
     def crawl_sn_web(self):
+        """ crawl anime website """
+
         url = "https://sn-video.com/data/ajax/function/ajax_mainPage.php"
         data = {
             'index': 'true'
@@ -49,6 +59,8 @@ class SNLib:
             return True
 
     def read_anime(self):
+        """ read local data """
+
         with open('./anime_list.txt', 'r', encoding="utf-8") as f:
             while True:
                 line = f.readline()
@@ -61,13 +73,14 @@ class SNLib:
         return
 
     def write_anime(self, anime, episode, date):
+        """ write data into local """
+
         file = open('./anime_list.txt', 'a', encoding="utf-8")
         file.write(anime+"\t"+episode+"\t"+date+"\n")
         file.close()
 
     def collect_anime(self, anime_name):
         date = self.get_current_time()
-        # anime_name = str(input("請輸入動漫名稱: "))
         if self.anime_web_dic.get(anime_name) == None:
             print("動漫: " + anime_name + " 找不到")
             return False
@@ -108,6 +121,8 @@ class SNLib:
         return is_update
 
     def write_anime_update(self):
+        """ write updating data into local """
+
         file = open('./anime_list.txt', 'w', encoding="utf-8")
         for a in self.local_data_dic:
             file.write(

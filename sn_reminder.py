@@ -1,6 +1,13 @@
+"""
+@author: Jack Lee
+Reference: "https://sn-video.com/data/ajax/function/ajax_mainPage.php"
+
+sn_reminder is a application to crawl the amine website and show the upating episodes on
+the UI. It could save the anime in the local and update anime episodes through the 
+crawling website.
+"""
 import sn_lib
 import tkinter as tk
-from tkinter import ttk
 
 
 class Application(tk.Tk):
@@ -29,12 +36,6 @@ class Application(tk.Tk):
         self.button_collect_list = tk.Button(self, height=2, text='收藏動漫列表', command=self.connect_collect_list_button).grid(
             row=1, column=1, padx=20, )
 
-        # self.checkbutton_reminder = tk.Checkbutton(
-        #     self).grid(row=3, column=1, padx=20, sticky=(tk.W, tk.S))
-
-        # self.label_reminder = tk.Label(self, text="每日提醒").grid(
-        #     row=3, column=1, padx=40, ipady=3, sticky=(tk.W, tk.S))
-
     def connect_collect_button(self):
         print("連接收藏動漫")
         self.run(1)
@@ -53,13 +54,14 @@ class Application(tk.Tk):
             self.listbox.insert(tk.END, anime+anime_list[anime])
 
     def show_listbox_local(self, local_anime):
+        """ show local data on the listbox """
+
         self.listbox.delete(0, tk.END)
         for anime in local_anime:
             self.listbox.insert(
                 tk.END, anime+local_anime[anime][0]+local_anime[anime][1])
 
     def run(self, command):
-        # command = int(input("1. 輸入收藏動漫\t2. 線上更新清單\t3. 更新資料庫內容"))
         if command == 1:
             text = self.var.get()
             if len(text) == 0:
