@@ -29,11 +29,11 @@ class Application(tk.Tk):
         self.button_collect_list = tk.Button(self, height=2, text='收藏動漫列表', command=self.connect_collect_list_button).grid(
             row=1, column=1, padx=20, )
 
-        self.checkbutton_reminder = tk.Checkbutton(
-            self).grid(row=3, column=1, padx=20, sticky=(tk.W, tk.S))
+        # self.checkbutton_reminder = tk.Checkbutton(
+        #     self).grid(row=3, column=1, padx=20, sticky=(tk.W, tk.S))
 
-        self.label_reminder = tk.Label(self, text="每日提醒").grid(
-            row=3, column=1, padx=40, ipady=3, sticky=(tk.W, tk.S))
+        # self.label_reminder = tk.Label(self, text="每日提醒").grid(
+        #     row=3, column=1, padx=40, ipady=3, sticky=(tk.W, tk.S))
 
     def connect_collect_button(self):
         print("連接收藏動漫")
