@@ -66,6 +66,7 @@ class SNLib:
                 line = f.readline()
                 if line:
                     s = line.split('\t')
+                    print(s)
                     self.local_data_dic[s[0]] = [s[1], s[2].strip()]
                 else:
                     break
@@ -127,5 +128,4 @@ class SNLib:
         for a in self.local_data_dic:
             file.write(
                 a+"\t"+self.local_data_dic[a][0]+"\t"+self.local_data_dic[a][1]+"\n")
-        file.write("\n")
         file.close()

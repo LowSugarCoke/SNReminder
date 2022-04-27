@@ -16,8 +16,9 @@ class Application(tk.Tk):
         self.createWidgets()
         self.SNLib = sn_lib.SNLib()
         if self.SNLib.crawl_sn_web() == False:
-            print("Something wrong")
-        self.SNLib.read_anime()
+            self.listbox.insert(tk.END, "Connect failed")
+        else:
+            self.SNLib.read_anime()
 
     def createWidgets(self):
         self.geometry('800x500')
